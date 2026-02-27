@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/main.tsx","./src/background/index.ts","./src/lib/categorizer.ts","./src/newtab/newtab.tsx","./src/newtab/main.tsx","./src/popup/popup.tsx","./src/popup/main.tsx","./src/store/usestore.ts","./src/types/index.ts","./vite.config.ts"],"errors":true,"version":"5.9.3"}
