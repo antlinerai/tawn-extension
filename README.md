@@ -1,73 +1,81 @@
-# React + TypeScript + Vite
+# Tawn Extension
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> Smart URL Organizer — Beautiful new tab experience
 
-Currently, two official plugins are available:
+Built with **Vite + React + TypeScript + CRXJS** for Chrome MV3.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Install in Chrome (Now)
 
-## React Compiler
+The extension is **already built** in `dist/`. Load it directly:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. Open Chrome → navigate to `chrome://extensions`
+2. Enable **Developer mode** (top right toggle)
+3. Click **Load unpacked**
+4. Select the `dist/` folder in this directory
+5. Open a **new tab** → Tawn launches! 🎉
 
-## Expanding the ESLint configuration
+## 📁 Structure
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+tawn-extension/
+├── dist/               ← Built extension (load this in Chrome)
+│   ├── manifest.json
+│   ├── newtab.html     ← New tab page
+│   ├── popup.html      ← Toolbar popup
+│   ├── service-worker-loader.js
+│   └── assets/
+├── src/
+│   ├── newtab/         ← Main new tab UI
+│   ├── popup/          ← Toolbar popup
+│   ├── background/     ← Service worker (URL capture)
+│   ├── store/          ← Zustand state
+│   ├── lib/            ← Categorizer, API client
+│   └── types/          ← TypeScript types
+├── manifest.json       ← Extension manifest
+└── vite.config.ts      ← Vite + CRXJS config
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🛠 Development
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+npm install
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Development build (watch mode)
+npm run dev
+
+# Production build
+npm run build
+# → dist/ folder updated
 ```
+
+## ⚙️ Environment
+
+Create `.env`:
+```
+VITE_API_URL=http://localhost:4000/api/v1
+VITE_WEB_URL=http://localhost:3000
+```
+
+## Features
+
+- **New Tab Replacement**: Replaces Chrome new tab with Tawn launcher
+- **Auto URL Capture**: Tracks every URL you visit, auto-categorized
+- **10 Smart Categories**: Work, Dev, Finance, Entertainment, Shopping, Health, Social, News, Learning, Personal
+- **Rich URL Cards**: OG images, favicon, description, visit count
+- **Drag & Drop**: Reorder cards across sections
+- **Context Menu**: Right-click any card → Move / Open / Delete
+- **Offline First**: Stores 500 URLs locally, syncs when signed in
+- **Dark / Light Mode**: Toggle in top bar
+- **Authentication**: Sign in to sync across all your devices
+
+## Tech Stack
+
+| Tool | Purpose |
+|------|---------|
+| Vite + CRXJS | Chrome extension bundler |
+| React 18 + TypeScript | UI framework |
+| Tailwind CSS | Styling |
+| Framer Motion | Animations |
+| @dnd-kit | Drag & drop |
+| Zustand | State management |
+| lucide-react | Icons |
